@@ -3,6 +3,8 @@ from requests import session
 import re
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+import numpy as np
 from collections import Counter
 import time
 import random
@@ -13,18 +15,6 @@ username = os.environ['MEMRISE_USERNAME']
 password = os.environ['MEMRISE_PASSWORD']
 
 courses = [
-  [
-    "https://www.memrise.com/course/1857239/5000-most-frequent-dutch-words-audio/",
-    "dutch",
-    "NL",
-    2
-  ],
-  [
-    "https://www.memrise.com/course/541/hsk-level-1-introductory-mandarin-with-audio/",
-    "chinese",
-    "ZH",
-    13
-  ],
   [
     "https://www.memrise.com/course/737/first-5000-words-of-spanish/",
     "spanish",
@@ -60,6 +50,18 @@ courses = [
     "german",
     "DE",
     337
+  ],
+  [
+    "https://www.memrise.com/course/1857239/5000-most-frequent-dutch-words-audio/",
+    "dutch",
+    "NL",
+    2
+  ],
+  [
+    "https://www.memrise.com/course/541/hsk-level-1-introductory-mandarin-with-audio/",
+    "chinese",
+    "ZH",
+    13
   ]
 ]
 
@@ -114,7 +116,7 @@ with open("stats", "a") as file:
         values.extend(list(map(converter, matches)))
 
         print("{}/{}".format(i, course[3]))
-        time.sleep(random.randrange(5, 30, 1))
+        time.sleep(random.randrange(1, 15, 1))
 
       if len(values) != 0:
         mean = sum(values) / float(len(values))
@@ -125,11 +127,16 @@ with open("stats", "a") as file:
         print("now: {}".format(now))
         file.write("{} {:0.2f} {:0.2f} {}\n".format(course[2], mean, sd, now))
         
-        plt.hist(values, bins = max(values), edgecolor = 'black', facecolor = 'green')
+        plt.hist(values, bins = max(values), edgecolor = 'black', facecolor = 'green', linewidth=0.8)
         counter = Counter(values)
-        plt.axis([0, max(values), 0, values.count(max(values, key = counter.get))])
+        y_max = values.count(max(values, key = counter.get))
+        plt.axis([0, max(values), 0, y_max])
+        #plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(25))
+        #plt.gca().yaxis.set_minor_locator(ticker.MultipleLocator(5))
         plt.grid(True)
-        plt.savefig(os.path.join("graphs", "{}-{}.png".format(course[1], time.strftime("%y%m%d"))), dpi=400)
+        plt.savefig(os.path.join("graphs", "{}-{}.png".format(course[1], time.strftime("%y%m%d"))), dpi=600)
+        plt.clf()
+        plt.cla()
       else:
         print("mean: N/A")
         print("sd: N/A")

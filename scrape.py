@@ -54,6 +54,12 @@ courses = [
     "dutch",
     "NL",
     2
+  ],
+  [
+    "https://www.memrise.com/course/541/hsk-level-1-introductory-mandarin-with-audio/",
+    "chinese",
+    "ZH",
+    13
   ]
 ]
 

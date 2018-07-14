@@ -14,6 +14,18 @@ password = os.environ['MEMRISE_PASSWORD']
 
 courses = [
   [
+    "https://www.memrise.com/course/1857239/5000-most-frequent-dutch-words-audio/",
+    "dutch",
+    "NL",
+    2
+  ],
+  [
+    "https://www.memrise.com/course/541/hsk-level-1-introductory-mandarin-with-audio/",
+    "chinese",
+    "ZH",
+    13
+  ],
+  [
     "https://www.memrise.com/course/737/first-5000-words-of-spanish/",
     "spanish",
     "ES",
@@ -48,18 +60,6 @@ courses = [
     "german",
     "DE",
     337
-  ],
-  [
-    "https://www.memrise.com/course/1857239/5000-most-frequent-dutch-words-audio/",
-    "dutch",
-    "NL",
-    2
-  ],
-  [
-    "https://www.memrise.com/course/541/hsk-level-1-introductory-mandarin-with-audio/",
-    "chinese",
-    "ZH",
-    13
   ]
 ]
 
@@ -114,7 +114,7 @@ with open("stats", "a") as file:
         values.extend(list(map(converter, matches)))
 
         print("{}/{}".format(i, course[3]))
-        time.sleep(random.randrange(0, 10, 1))
+        time.sleep(random.randrange(5, 30, 1))
 
       if len(values) != 0:
         mean = sum(values) / float(len(values))
@@ -125,12 +125,11 @@ with open("stats", "a") as file:
         print("now: {}".format(now))
         file.write("{} {:0.2f} {:0.2f} {}\n".format(course[2], mean, sd, now))
         
-        n, bins, patches = plt.hist(values, len(set(values)), density = 0, facecolor = 'green', alpha = 0.75)
-
+        plt.hist(values, bins = max(values), edgecolor = 'black', facecolor = 'green')
         counter = Counter(values)
-        plt.axis([min(values), max(values), 0, values.count(max(values, key = counter.get))])
+        plt.axis([0, max(values), 0, values.count(max(values, key = counter.get))])
         plt.grid(True)
-        plt.savefig(os.path.join("graphs", "{}-{}.png".format(course[1], time.strftime("%y%m%d"))))
+        plt.savefig(os.path.join("graphs", "{}-{}.png".format(course[1], time.strftime("%y%m%d"))), dpi=400)
       else:
         print("mean: N/A")
         print("sd: N/A")

@@ -137,6 +137,15 @@ with open("stats", "a") as file:
         plt.savefig(os.path.join("graphs", "{}-{}.png".format(course[1], time.strftime("%y%m%d"))), dpi=600)
         plt.clf()
         plt.cla()
+
+        plt.hist(values, bins = max(values), edgecolor = 'black', facecolor = 'green', linewidth=0.8)
+        plt.axis([0, 180, 0, 50])
+        #plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(25))
+        #plt.gca().yaxis.set_minor_locator(ticker.MultipleLocator(5))
+        plt.grid(True)
+        plt.savefig(os.path.join("graphs", "{}-norm-{}.png".format(course[1], time.strftime("%y%m%d"))), dpi=600)
+        plt.clf()
+        plt.cla()
       else:
         print("mean: N/A")
         print("sd: N/A")

@@ -116,7 +116,7 @@ with open("stats", "a") as file:
         values.extend(list(map(converter, matches)))
 
         print("{}/{}".format(i, course[3]))
-        #time.sleep(random.randrange(1, 30, 1))
+        #time.sleep(random.randrange(1, 3, 1))
 
       if len(values) != 0:
         mean = sum(values) / float(len(values))
@@ -143,7 +143,7 @@ with open("stats", "a") as file:
         #plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(25))
         #plt.gca().yaxis.set_minor_locator(ticker.MultipleLocator(5))
         plt.grid(True)
-        plt.savefig(os.path.join("graphs", "{}-norm-{}.png".format(course[1], time.strftime("%y%m%d"))), dpi=600)
+        plt.savefig(os.path.join("graphs/norm", "{}-norm-{}.png".format(course[1], time.strftime("%y%m%d"))), dpi=600)
         plt.clf()
         plt.cla()
       else:

@@ -16,6 +16,12 @@ password = os.environ['MEMRISE_PASSWORD']
 
 courses = [
   [
+    "https://www.memrise.com/course/2011394/turbocharge-catalan/",
+    "catalan",
+    "CA",
+    40
+  ],
+  [
     "https://www.memrise.com/course/737/first-5000-words-of-spanish/",
     "spanish",
     "ES",
@@ -61,12 +67,13 @@ courses = [
     "https://www.memrise.com/course/541/hsk-level-1-introductory-mandarin-with-audio/",
     "chinese",
     "ZH",
-    13
+    17
   ]
 ]
 
 with open("stats", "a") as file:
   file.write(time.strftime("\n%y-%m-%d\n"))
+  file.write("     MEAN     SD   Now    30    60    90  30^-1  60^-1  90^-1\n")
   file.flush()
 
   with session() as c:
@@ -125,7 +132,15 @@ with open("stats", "a") as file:
         print("mean: {}".format(mean))
         print("sd: {}".format(sd))
         print("now: {}".format(now))
-        file.write("{} {:0.2f} {:0.2f} {}\n".format(course[2], mean, sd, now))
+
+        len_30 = len([word for word in values if word <= 30])
+        len_60 = len([word for word in values if word <= 60])
+        len_90 = len([word for word in values if word <= 90])
+        print("no. of words (30): {}".format(len_30))
+        print("no. of words (60): {}".format(len_60))
+        print("no. of words (90): {}".format(len_90))
+
+        file.write("{} {:>6.2f} {:>6.2f} {:>5} {:>5} {:>5} {:>5} {:>6.2f} {:>6.2f} {:>6.2f}\n".format(course[2], mean, sd, now, len_30, len_60, len_90, len_30/30, len_60/60, len_90/90))
         
         plt.hist(values, bins = max(values), edgecolor = 'black', facecolor = 'green', linewidth=0.8)
         counter = Counter(values)
@@ -150,5 +165,5 @@ with open("stats", "a") as file:
         print("mean: N/A")
         print("sd: N/A")
         print("now: N/A")
-        file.write("{} N/A   N/A   N/A\n".format(course[2]))
+        file.write("{}    N/A    N/A   N/A   N/A   N/A   N/A\n".format(course[2]))
       file.flush()

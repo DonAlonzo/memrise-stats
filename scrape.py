@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from requests import session
+from math import ceil
 import re
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
@@ -149,7 +150,18 @@ with open("stats", "a") as file:
         #plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(25))
         #plt.gca().yaxis.set_minor_locator(ticker.MultipleLocator(5))
         plt.grid(True)
-        plt.savefig(os.path.join("graphs", "{}-{}.png".format(course[1], time.strftime("%y%m%d"))), dpi=600)
+        plt.savefig(os.path.join("graphs/days", "{}-{}.png".format(course[1], time.strftime("%y%m%d"))), dpi=600)
+        plt.clf()
+        plt.cla()
+        
+        plt.hist(values, bins = ceil(max(values) / 7), edgecolor = 'black', facecolor = 'green', linewidth=0.8)
+        counter = Counter(values)
+        y_max = values.count(max(values, key = counter.get))
+        plt.axis([0, max(values), 0, y_max])
+        #plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(25))
+        #plt.gca().yaxis.set_minor_locator(ticker.MultipleLocator(5))
+        plt.grid(True)
+        plt.savefig(os.path.join("graphs/weeks", "{}-{}.png".format(course[1], time.strftime("%y%m%d"))), dpi=600)
         plt.clf()
         plt.cla()
 
@@ -158,7 +170,16 @@ with open("stats", "a") as file:
         #plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(25))
         #plt.gca().yaxis.set_minor_locator(ticker.MultipleLocator(5))
         plt.grid(True)
-        plt.savefig(os.path.join("graphs/norm", "{}-norm-{}.png".format(course[1], time.strftime("%y%m%d"))), dpi=600)
+        plt.savefig(os.path.join("graphs/days-norm", "{}-norm-{}.png".format(course[1], time.strftime("%y%m%d"))), dpi=600)
+        plt.clf()
+        plt.cla()
+
+        plt.hist(values, bins = ceil(max(values) / 7), edgecolor = 'black', facecolor = 'green', linewidth=0.8)
+        plt.axis([0, 180, 0, 700])
+        #plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(25))
+        #plt.gca().yaxis.set_minor_locator(ticker.MultipleLocator(5))
+        plt.grid(True)
+        plt.savefig(os.path.join("graphs/weeks-norm", "{}-norm-week-{}.png".format(course[1], time.strftime("%y%m%d"))), dpi=600)
         plt.clf()
         plt.cla()
       else:

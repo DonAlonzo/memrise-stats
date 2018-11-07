@@ -64,6 +64,12 @@ courses = [
     "NL",
     2
   ],
+  [
+    "https://www.memrise.com/course/2040467/svenskt-teckensprak/",
+    "swedish-sign-language",
+    "SS",
+    56
+  ],
 #  [
 #    "https://www.memrise.com/course/541/hsk-level-1-introductory-mandarin-with-audio/",
 #    "chinese",

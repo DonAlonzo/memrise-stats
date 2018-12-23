@@ -20,13 +20,31 @@ courses = [
     "https://www.memrise.com/course/2011394/turbocharge-catalan/",
     "catalan",
     "CA",
-    40
+    41
   ],
   [
     "https://www.memrise.com/course/737/first-5000-words-of-spanish/",
     "spanish",
     "ES",
     63
+  ],
+  [
+    "https://www.memrise.com/course/343554/first-5000-words-of-spanish-top-up-1-2/",
+    "spanish+1",
+    "ES",
+    10
+  ],
+  [
+    "https://www.memrise.com/course/343575/first-5000-words-of-spanish-top-up-2/",
+    "spanish+2",
+    "ES",
+    10
+  ],
+  [
+    "https://www.memrise.com/course/343661/first-5000-words-of-spanish-top-up-3/",
+    "spanish+3",
+    "ES",
+    10
   ],
   [
     "https://www.memrise.com/course/1415384/5000-most-frequent-italian-words-audio/",
@@ -70,12 +88,12 @@ courses = [
     "SS",
     56
   ],
-#  [
-#    "https://www.memrise.com/course/541/hsk-level-1-introductory-mandarin-with-audio/",
-#    "chinese",
-#    "ZH",
-#    17
-##  ]
+  [
+    "https://www.memrise.com/course/541/hsk-level-1-introductory-mandarin-with-audio/",
+    "chinese",
+    "ZH",
+    17
+  ]
 ]
 
 with open("stats", "a") as file:

@@ -23,16 +23,16 @@ topics = [
 #    62
 #  ],
 
-  # {
-  #   "name": "catalan",
-  #   "shortname": "CA",
-  #   "courses": [
-  #     {
-  #       "url": "https://www.memrise.com/course/2011394/turbocharge-catalan/",
-  #       "#": 41
-  #     }
-  #   ]
-  # },
+#   {
+#     "name": "catalan",
+#     "shortname": "CA",
+#     "courses": [
+#       {
+#         "url": "https://www.memrise.com/course/2011394/turbocharge-catalan/",
+#         "#": 41
+#       }
+#     ]
+#   },
 
 #  {
 #    "name": "spanish",
@@ -72,12 +72,16 @@ topics = [
 #   ]
 # },
 
-#  [
-#    "https://www.memrise.com/course/572/5000-word-frequency-list-with-audio/",
-#    "portuguese",
-#    "PT",
-#    167
-#  ],
+# {
+#   "name": "portuguese",
+#   "shortname": "PT",
+#   "courses": [
+#     {
+#       "url": "https://www.memrise.com/course/572/5000-word-frequency-list-with-audio/",
+#       "#": 167
+#     }
+#   ]
+# },
 
  {
    "name": "french",

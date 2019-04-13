@@ -10,277 +10,294 @@ from collections import Counter
 import time
 import random
 import os
+import sys
 
-login_url = "https://www.memrise.com/login/"
+login_url = "https://decks.memrise.com/login/"
 username = os.environ['MEMRISE_USERNAME']
 password = os.environ['MEMRISE_PASSWORD']
 
 topics = [
-#  [
-#    "https://www.memrise.com/course/8783/current-world-leaders-2/",
-#    "politics",
-#    "po",
-#    62
-#  ],
+  {
+    "name": "politics",
+    "shortname": "po",
+    "courses": [
+      {
+        "url": "https://decks.memrise.com/course/8783/current-world-leaders-2/",
+        "#": 62
+      }
+    ]
+  },
 
-#   {
-#     "name": "catalan",
-#     "shortname": "CA",
-#     "courses": [
-#       {
-#         "url": "https://www.memrise.com/course/2011394/turbocharge-catalan/",
-#         "#": 41
-#       }
-#     ]
-#   },
+  {
+    "name": "catalan",
+    "shortname": "CA",
+    "courses": [
+      {
+        "url": "https://decks.memrise.com/course/2011394/turbocharge-catalan/",
+        "#": 41
+      }
+    ]
+  },
 
-#  {
-#    "name": "spanish",
-#    "shortname": "ES",
-#    "courses": [
-#      {
-#        "url": "https://www.memrise.com/course/737/first-5000-words-of-spanish/",
-#        "#": 63
-#      },
-#      {
-#        "url": "https://www.memrise.com/course/343554/first-5000-words-of-spanish-top-up-1-2/",
-#        "#": 10
-#      },
-#      {
-#        "url": "https://www.memrise.com/course/343575/first-5000-words-of-spanish-top-up-2/",
-#        "#": 10
-#      },
-#      {
-#        "url": "https://www.memrise.com/course/343661/first-5000-words-of-spanish-top-up-3/",
-#        "#": 10
-#      },
-#      {
-#        "url": "https://www.memrise.com/course/2016225/turbocharge-spanish/",
-#        "#": 15
-#      }
-#    ]
-#  },
+  {
+    "name": "spanish",
+    "shortname": "ES",
+    "courses": [
+      {
+        "url": "https://decks.memrise.com/course/737/first-5000-words-of-spanish/",
+        "#": 63
+      },
+      {
+        "url": "https://decks.memrise.com/course/343554/first-5000-words-of-spanish-top-up-1-2/",
+        "#": 10
+      },
+      {
+        "url": "https://decks.memrise.com/course/343575/first-5000-words-of-spanish-top-up-2/",
+        "#": 10
+      },
+      {
+        "url": "https://decks.memrise.com/course/343661/first-5000-words-of-spanish-top-up-3/",
+        "#": 10
+      },
+      {
+        "url": "https://decks.memrise.com/course/2016225/turbocharge-spanish/",
+        "#": 15
+      }
+    ]
+  },
 
-# {
-#   "name": "italian",
-#   "shortname": "IT",
-#   "courses": [
-#     {
-#       "url": "https://www.memrise.com/course/1415384/5000-most-frequent-italian-words-audio/",
-#       "#": 43
-#     }
-#   ]
-# },
+  {
+    "name": "italian",
+    "shortname": "IT",
+    "courses": [
+      {
+        "url": "https://decks.memrise.com/course/1415384/5000-most-frequent-italian-words-audio/",
+        "#": 43
+      }
+    ]
+  },
 
-# {
-#   "name": "portuguese",
-#   "shortname": "PT",
-#   "courses": [
-#     {
-#       "url": "https://www.memrise.com/course/572/5000-word-frequency-list-with-audio/",
-#       "#": 167
-#     }
-#   ]
-# },
+  {
+    "name": "portuguese",
+    "shortname": "PT",
+    "courses": [
+      {
+        "url": "https://decks.memrise.com/course/572/5000-word-frequency-list-with-audio/",
+        "#": 167
+      }
+    ]
+  },
 
- {
-   "name": "french",
-   "shortname": "FR",
-   "courses": [
-     {
-       "url": "https://www.memrise.com/course/131111/5000-most-common-french-words/",
-       "#": 33
-     }
-   ]
- },
+  {
+    "name": "french",
+    "shortname": "FR",
+    "courses": [
+      {
+        "url": "https://decks.memrise.com/course/131111/5000-most-common-french-words/",
+        "#": 33
+      }
+    ]
+  },
 
-#  [
-#    "https://www.memrise.com/course/349091/7000-most-used-finnish-words/",
-#    "finnish",
-#    "FI",
-#    48
-#  ],
+  {
+    "name": "finnish",
+    "shortname": "FI",
+    "courses": [
+      {
+        "url": "https://decks.memrise.com/course/349091/7000-most-used-finnish-words/",
+        "#": 48
+      }
+    ]
+  },
 
-# {
-#   "name": "german",
-#   "shortname": "DE",
-#   "courses": [
-#     {
-#       "url": "https://www.memrise.com/course/47049/5000-words-top-87-sorted-by-frequency/",
-#       "#": 337
-#     }
-#   ]
-# },
+  {
+    "name": "german",
+    "shortname": "DE",
+    "courses": [
+      {
+        "url": "https://decks.memrise.com/course/47049/5000-words-top-87-sorted-by-frequency/",
+        "#": 337
+      }
+    ]
+  },
 
-#  {
-#    "name": "dutch",
-#    "shortname": "NL",
-#    "courses": [
-#      {
-#        "url": "https://www.memrise.com/course/1857239/5000-most-frequent-dutch-words-audio/",
-#        "#": 2
-#      }
-#    ]
-#  },
+  {
+    "name": "dutch",
+    "shortname": "NL",
+    "courses": [
+      {
+        "url": "https://decks.memrise.com/course/1857239/5000-most-frequent-dutch-words-audio/",
+        "#": 2
+      }
+    ]
+  },
+ 
+  {
+    "name": "swedish-sign-language",
+    "shortname": "SS",
+    "courses": [
+      {
+        "url": "https://decks.memrise.com/course/2040467/svenskt-teckensprak/",
+        "#": 56
+      }
+    ]
+  },
 
-#  {
-#    "name": "swedish-sign-language",
-#    "shortname": "SS",
-#    "courses": [
-#      {
-#        "url": "https://www.memrise.com/course/2040467/svenskt-teckensprak/",
-#        "#": 56
-#      }
-#    ]
-#  },
+  {
+    "name": "chinese",
+    "shortname": "ZH",
+    "courses": [
+      {
+        "url": "https://decks.memrise.com/course/541/hsk-level-1-introductory-mandarin-with-audio/",
+        "#": 17
+      }
+    ]
+  },
 
-#  [
-#    "https://www.memrise.com/course/541/hsk-level-1-introductory-mandarin-with-audio/",
-#    "chinese",
-#    "ZH",
-#    17
-#  ],
+  {
+    "name": "latin",
+    "shortname": "LA",
+    "courses": [
+      {
+        "url": "https://decks.memrise.com/course/2199888/turbocharge-latin/",
+        "#": 32
+      }
+    ]
+  },
 
-  # {
-  #   "name": "latin",
-  #   "shortname": "LA",
-  #   "courses": [
-  #     {
-  #       "url": "https://www.memrise.com/course/2199888/turbocharge-latin/",
-  #       "#": 32
-  #     }
-  #   ]
-  # },
+  {
+    "name": "romanian",
+    "shortname": "RO",
+    "courses": [
+      {
+        "url": "https://decks.memrise.com/course/2196538/turbocharge-romanian/",
+        "#": 23
+      }
+    ]
+  },
 
-#  [
-#    "https://www.memrise.com/course/2196538/turbocharge-romanian/",
-#    "romanian",
-#    "RO",
-#    23
-#  ]
-
-  # {
-  #   "name": "geography",
-  #   "shortname": "geo",
-  #   "courses": [
-  #     {
-  #       "url": "https://www.memrise.com/course/72039/afghan-provinces/",
-  #       "#": 10
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/52936/american-geography/",
-  #       "#": 18
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/65916/belgian-provinces/",
-  #       "#": 3
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/45822/brazilian-states/",
-  #       "#": 15
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/42769/country-mapping/",
-  #       "#": 54
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/56177/danish-regions/",
-  #       "#": 3
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/81962/egyptian-governorates/",
-  #       "#": 12
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/81975/ethiopian-regions/",
-  #       "#": 3
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/48366/federal-subjects-of-russia/",
-  #       "#": 31
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/633958/finlands-landskapsforbund-lan-och-hist-landskap/",
-  #       "#": 3
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/430917/geography-of-ireland-2/",
-  #       "#": 5
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/82304/indian-states-union-territories/",
-  #       "#": 5
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/55360/italian-regions/",
-  #       "#": 6
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/166362/london-boroughs-2/",
-  #       "#": 2
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/55145/mexican-states/",
-  #       "#": 6
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/37152/mountain-superlatives/",
-  #       "#": 13
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/56078/north-korean-provinces/",
-  #       "#": 2
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/68038/norwegian-counties/",
-  #       "#": 3
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/2071980/oresundsregionen/",
-  #       "#": 2
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/457764/pakistani-geography/",
-  #       "#": 4
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/1621892/political-divisions-of-bosnia-and-herzegovina/",
-  #       "#": 4
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/68379/portuguese-districts/",
-  #       "#": 5
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/34913/provinces-of-china-2/",
-  #       "#": 15
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/819884/provinces-of-cuba/",
-  #       "#": 2
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/1622431/regions-and-states-of-venezuela/",
-  #       "#": 4
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/1155958/regions-of-france-as-of-july-2016/",
-  #       "#": 3
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/28784/rivers-lakes-and-seas/",
-  #       "#": 20
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/65903/saudi-arabian-provinces/",
-  #       "#": 2
-  #     },
-  #     {
-  #       "url": "https://www.memrise.com/course/991/the-federal-states-of-germany/",
-  #       "#": 10
-  #     }
-  #   ]
-  # }
+  {
+    "name": "geography",
+    "shortname": "geo",
+    "courses": [
+      {
+        "url": "https://decks.memrise.com/course/72039/afghan-provinces/",
+        "#": 10
+      },
+      {
+        "url": "https://decks.memrise.com/course/52936/american-geography/",
+        "#": 18
+      },
+      {
+        "url": "https://decks.memrise.com/course/65916/belgian-provinces/",
+        "#": 3
+      },
+      {
+        "url": "https://decks.memrise.com/course/45822/brazilian-states/",
+        "#": 15
+      },
+      {
+        "url": "https://decks.memrise.com/course/42769/country-mapping/",
+        "#": 54
+      },
+      {
+        "url": "https://decks.memrise.com/course/56177/danish-regions/",
+        "#": 3
+      },
+      {
+        "url": "https://decks.memrise.com/course/81962/egyptian-governorates/",
+        "#": 12
+      },
+      {
+        "url": "https://decks.memrise.com/course/81975/ethiopian-regions/",
+        "#": 3
+      },
+      {
+        "url": "https://decks.memrise.com/course/48366/federal-subjects-of-russia/",
+        "#": 31
+      },
+      {
+        "url": "https://decks.memrise.com/course/633958/finlands-landskapsforbund-lan-och-hist-landskap/",
+        "#": 3
+      },
+      {
+        "url": "https://decks.memrise.com/course/430917/geography-of-ireland-2/",
+        "#": 5
+      },
+      {
+        "url": "https://decks.memrise.com/course/82304/indian-states-union-territories/",
+        "#": 5
+      },
+      {
+        "url": "https://decks.memrise.com/course/55360/italian-regions/",
+        "#": 6
+      },
+      {
+        "url": "https://decks.memrise.com/course/166362/london-boroughs-2/",
+        "#": 2
+      },
+      {
+        "url": "https://decks.memrise.com/course/55145/mexican-states/",
+        "#": 6
+      },
+      {
+        "url": "https://decks.memrise.com/course/37152/mountain-superlatives/",
+        "#": 13
+      },
+      {
+        "url": "https://decks.memrise.com/course/56078/north-korean-provinces/",
+        "#": 2
+      },
+      {
+        "url": "https://decks.memrise.com/course/68038/norwegian-counties/",
+        "#": 3
+      },
+      {
+        "url": "https://decks.memrise.com/course/2071980/oresundsregionen/",
+        "#": 2
+      },
+      {
+        "url": "https://decks.memrise.com/course/457764/pakistani-geography/",
+        "#": 4
+      },
+      {
+        "url": "https://decks.memrise.com/course/1621892/political-divisions-of-bosnia-and-herzegovina/",
+        "#": 4
+      },
+      {
+        "url": "https://decks.memrise.com/course/68379/portuguese-districts/",
+        "#": 5
+      },
+      {
+        "url": "https://decks.memrise.com/course/34913/provinces-of-china-2/",
+        "#": 15
+      },
+      {
+        "url": "https://decks.memrise.com/course/819884/provinces-of-cuba/",
+        "#": 2
+      },
+      {
+        "url": "https://decks.memrise.com/course/1622431/regions-and-states-of-venezuela/",
+        "#": 4
+      },
+      {
+        "url": "https://decks.memrise.com/course/1155958/regions-of-france-as-of-july-2016/",
+        "#": 3
+      },
+      {
+        "url": "https://decks.memrise.com/course/28784/rivers-lakes-and-seas/",
+        "#": 20
+      },
+      {
+        "url": "https://decks.memrise.com/course/65903/saudi-arabian-provinces/",
+        "#": 2
+      },
+      {
+        "url": "https://decks.memrise.com/course/991/the-federal-states-of-germany/",
+        "#": 10
+      }
+    ]
+  }
 ]
 
 with open("stats", "a") as file:
@@ -303,6 +320,9 @@ with open("stats", "a") as file:
       },
       headers = dict(referer = login_url)
     )
+    
+    if len(sys.argv) > 1:
+      topics = filter(lambda topic: topic["name"] in sys.argv, topics)
 
     for topic in topics:
       print(topic["name"])

@@ -11,6 +11,9 @@ import time
 import random
 import os
 import sys
+import warnings
+
+warnings.simplefilter("ignore")
 
 login_url = "https://decks.memrise.com/login/"
 username = os.environ['MEMRISE_USERNAME']

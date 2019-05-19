@@ -1,11 +1,13 @@
 from bs4 import BeautifulSoup
 from requests import session
+from requests_oauthlib import OAuth2Session
 from math import ceil
 import re
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
+import urllib.parse as urlparse
 from collections import Counter
 import time
 import random
@@ -167,6 +169,17 @@ topics = [
       }
     ]
   },
+  
+  {
+    "name": "danish",
+    "shortname": "DA",
+    "courses": [
+      {
+        "url": "https://decks.memrise.com/course/1052543/danska-for-svenskar-danish-for-swedes/",
+        "#": 16
+      }
+    ]
+  },
 
   {
     "name": "romanian",
@@ -309,19 +322,19 @@ with open("stats", "a") as file:
   file.flush()
 
   with session() as c:
-    result = c.get(login_url)
-
-    login = BeautifulSoup(result.text, "lxml")
-    token = login.find("input", {"name": "csrfmiddlewaretoken"}).get("value")
-
+    result = c.get(login_url, allow_redirects=True)
+    page = BeautifulSoup(result.text, "lxml")
+    next = page.find("input", {"type": "hidden", "name": "next"}).get("value")
+    token = page.find("input", {"name": "csrfmiddlewaretoken"}).get("value")
     result = c.post(
-      login_url,
+      result.url,
       data = {
+        'csrfmiddlewaretoken': token,
         'username': username,
         'password': password,
-        'csrfmiddlewaretoken': token
+        'next': next
       },
-      headers = dict(referer = login_url)
+      headers = dict(referer = result.url)
     )
     
     if len(sys.argv) > 1:
@@ -337,11 +350,11 @@ with open("stats", "a") as file:
           response = c.get(
             ix_url,
             headers = dict(referer = ix_url)
-              )
+          )
 
           page = BeautifulSoup(response.text, "lxml")
           statuses = [status.string for status in page.find_all("div", {"class": "status"})]
-          
+
           matcher = lambda status: re.search("in (.*) (.*)", status)
           matches = list(map(matcher, filter(lambda status: status != "Ignored", statuses)))
 

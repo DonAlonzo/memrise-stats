@@ -182,6 +182,39 @@ topics = [
   },
 
   {
+    "name": "english",
+    "shortname": "EN",
+    "courses": [
+      {
+        "url": "https://decks.memrise.com/course/948/sat-comprehensive/",
+        "#": 3
+      }
+    ]
+  },
+
+  {
+    "name": "icelandic",
+    "shortname": "IS",
+    "courses": [
+      {
+        "url": "https://decks.memrise.com/course/728073/icelandic-vocabulary-and-phrases/",
+        "#": 2
+      }
+    ]
+  },
+
+  {
+    "name": "swedish",
+    "shortname": "SE",
+    "courses": [
+      {
+        "url": "https://decks.memrise.com/course/202894/hogskoleprov-ord-2/",
+        "#": 3
+      }
+    ]
+  },
+
+  {
     "name": "romanian",
     "shortname": "RO",
     "courses": [
@@ -316,10 +349,15 @@ topics = [
   }
 ]
 
-with open("stats", "a") as file:
-  file.write(time.strftime("\n%y-%m-%d\n"))
-  file.write("     MEAN     SD   Now     7    30    60    90   7^-1  30^-1  60^-1  90^-1\n")
-  file.flush()
+with open("stats", "a+") as file:
+  title = time.strftime("%y-%m-%d\n")
+  file.seek(0);
+  if title not in file.readlines():
+    file.seek(0, 2);
+    file.write('\n')
+    file.write(title)
+    file.write("     MEAN     SD   Now     7    30    60    90   7^-1  30^-1  60^-1  90^-1\n")
+    file.flush()
 
   with session() as c:
     result = c.get(login_url, allow_redirects=True)
@@ -390,6 +428,7 @@ with open("stats", "a") as file:
         print("no. of words (30): {}".format(len_30))
         print("no. of words (60): {}".format(len_60))
         print("no. of words (90): {}".format(len_90))
+        print("no. of words (tot): {}".format(len(values)))
 
         file.write("{} {:>6.2f} {:>6.2f} {:>5} {:>5} {:>5} {:>5} {:>5} {:>6.2f} {:>6.2f} {:>6.2f} {:>6.2f}\n".format(topic["shortname"], mean, sd, now, len_7, len_30, len_60, len_90, len_7/7, len_30/30, len_60/60, len_90/90))
         
